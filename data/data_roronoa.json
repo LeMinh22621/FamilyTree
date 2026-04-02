@@ -1,0 +1,84 @@
+[
+  {
+    "id": "Z1",
+    "tenHuy": "Roronoa",
+    "tenTu": "Roronoa Pinzoro",
+    "thuyHieu": "Kiếm sĩ làng Shimotsuki",
+    "doi": "I",
+    "thuTuCon": 1,
+    "maDoi": "Z.I.1",
+    "gioiTinh": "Nam",
+    "ngaySinh": "Unknown",
+    "ngayMat": "Unknown",
+    "tieuSu": "Ông nội của Zoro, kết hôn với Shimotsuki Furiko (hậu duệ gia tộc Shimotsuki danh tiếng tại Wano). Một kiếm sĩ định cư tại Biển Đông.",
+    "hinhAnh": "https://images.example.com/pinzoro.png",
+    "moPhan": "Làng Shimotsuki",
+    "voChongIds": [
+      "Z1.1"
+    ],
+    "chaId": null,
+    "meId": null,
+    "nhanh": "noi"
+  },
+  {
+    "id": "Z2",
+    "tenHuy": "Roronoa",
+    "tenTu": "Roronoa Arashi",
+    "thuyHieu": "Kiếm sĩ",
+    "doi": "II",
+    "thuTuCon": 1,
+    "maDoi": "Z.II.1",
+    "gioiTinh": "Nam",
+    "ngaySinh": "Unknown",
+    "ngayMat": "Trận chiến với hải tặc",
+    "tieuSu": "Cha ruột của Zoro. Ông hy sinh trong một trận chiến chống lại băng hải tặc tấn công làng khi Zoro còn nhỏ.",
+    "hinhAnh": "https://images.example.com/arashi.png",
+    "moPhan": "Làng Shimotsuki",
+    "voChongIds": [
+      "Z2.1"
+    ],
+    "chaId": "Z1",
+    "meId": "Z1.1",
+    "nhanh": "noi"
+  },
+  {
+    "id": "Z3",
+    "tenHuy": "Roronoa",
+    "tenTu": "Roronoa Zoro",
+    "thuyHieu": "Bậc thầy Tam Kiếm Phái",
+    "doi": "III",
+    "thuTuCon": 1,
+    "maDoi": "Z.III.1",
+    "gioiTinh": "Nam",
+    "ngaySinh": "11-11",
+    "ngayMat": "",
+    "tieuSu": "Thợ săn Hải tặc, hậu duệ của huyền thoại Shimotsuki Ryuma. Kiếm sĩ mạnh nhất băng Mũ Rơm, người đặt mục tiêu đánh bại Mihawk để trở thành đệ nhất kiếm sĩ thế giới.",
+    "hinhAnh": "https://images.example.com/zoro.png",
+    "moPhan": "",
+    "voChongIds": [
+      "M4"
+    ],
+    "chaId": "Z2",
+    "meId": "Z2.1",
+    "nhanh": "noi"
+  },
+  {
+    "tenHuy": "Nguyễn Văn",
+    "tenTu": "A",
+    "thuyHieu": "adf",
+    "thuTuCon": 1,
+    "gioiTinh": "Nữ",
+    "ngaySinh": "",
+    "ngayMat": "",
+    "tieuSu": "",
+    "hinhAnh": "",
+    "moPhan": "",
+    "voChongIds": [
+      "Z3"
+    ],
+    "chaId": null,
+    "meId": null,
+    "nhanh": "noi",
+    "id": "M4"
+  }
+]

@@ -1,0 +1,82 @@
+{
+  "clans": [
+    {
+      "clanId": "monkey-d",
+      "clanName": "Monkey D.",
+      "dataFile": "data_monkey-d.json"
+    },
+    {
+      "clanId": "roronoa",
+      "clanName": "Roronoa",
+      "dataFile": "data_roronoa.json"
+    },
+    {
+      "clanId": "vinsmoke",
+      "clanName": "Vinsmoke",
+      "dataFile": "data_vinsmoke.json"
+    },
+    {
+      "clanId": "TrinhThienHien",
+      "clanName": "Trinh Thien Hien",
+      "dataFile": "data_TrinhThienHien.json"
+    }
+  ],
+  "users": [
+    {
+      "username": "admin_monkeyd",
+      "password": "monkeyd@2026",
+      "displayName": "Quản trị viên dòng họ Monkey D.",
+      "role": "admin",
+      "clanId": "monkey-d"
+    },
+    {
+      "username": "admin_roronoa",
+      "password": "roronoa@2026",
+      "displayName": "Quản trị viên dòng họ Roronoa",
+      "role": "admin",
+      "clanId": "roronoa"
+    },
+    {
+      "username": "admin_vinsmoke",
+      "password": "vinsmoke@2026",
+      "displayName": "Quản trị viên dòng họ Vinsmoke",
+      "role": "admin",
+      "clanId": "vinsmoke"
+    },
+    {
+      "username": "luffy",
+      "password": "luffy123",
+      "displayName": "Monkey D. Luffy",
+      "role": "viewer",
+      "clanId": "monkey-d"
+    },
+    {
+      "username": "zoro",
+      "password": "zoro123",
+      "displayName": "Roronoa Zoro",
+      "role": "viewer",
+      "clanId": "roronoa"
+    },
+    {
+      "username": "sanji",
+      "password": "sanji123",
+      "displayName": "Vinsmoke Sanji",
+      "role": "viewer",
+      "clanId": "vinsmoke"
+    },
+    {
+      "username": "sysadmin",
+      "password": "sysadmin@2026",
+      "displayName": "Quản trị hệ thống",
+      "role": "sysadmin",
+      "clanId": null
+    },
+    {
+      "username": "trinhthienchien",
+      "password": "trinhthienchien",
+      "displayName": "Trịnh Thiên Chiến",
+      "role": "admin",
+      "clanId": "TrinhThienHien"
+    }
+  ]
+}

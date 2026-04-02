@@ -4,3 +4,4 @@ dist/
 .env.example
 .env.local
 data/github-config.json
+.vercel

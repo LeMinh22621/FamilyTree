@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuth } from '../context/AuthContext';
 
 export default function AdminPanel() {
-  const { user, logout, setUsersData } = useAuth();
+  const { user, logout } = useAuth();
   const [tab, setTab] = React.useState('clans'); // 'clans' | 'users' | 'github'
   const [clans, setClans] = React.useState([]);
   const [users, setUsers] = React.useState([]);
@@ -36,13 +36,11 @@ export default function AdminPanel() {
       setClans(cr.clans || []);
       setUsers(ur.users || []);
       if (gh) setGhConfig(gh);
-      // Also update AuthContext's usersData
-      setUsersData({ clans: cr.clans || [], users: ur.users || [] });
     } catch (err) {
       console.error('Failed to fetch admin data', err);
     }
     setLoading(false);
-  }, [setUsersData]);
+  }, []);
 
   React.useEffect(() => { fetchData(); }, [fetchData]);
 

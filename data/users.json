@@ -24,56 +24,56 @@
   "users": [
     {
       "username": "admin_monkeyd",
-      "password": "monkeyd@2026",
+      "password": "$2b$10$DyheF7SFv8OGDzOm4pE8RerVgSpJatnSxs.OjKEe7lz9ddM9sL8kG",
       "displayName": "Quản trị viên dòng họ Monkey D.",
       "role": "admin",
       "clanId": "monkey-d"
     },
     {
       "username": "admin_roronoa",
-      "password": "roronoa@2026",
+      "password": "$2b$10$OuwtZ/PZLf9W1GCsRSJbmONu9XRMlFvCu5M/.PV.HPqAzidjgaXuS",
       "displayName": "Quản trị viên dòng họ Roronoa",
       "role": "admin",
       "clanId": "roronoa"
     },
     {
       "username": "admin_vinsmoke",
-      "password": "vinsmoke@2026",
+      "password": "$2b$10$qiECtN50nCknUrtH.xTxT.0h1VKEtmPUZjqA2Uk8/5x58FicvotCy",
       "displayName": "Quản trị viên dòng họ Vinsmoke",
       "role": "admin",
       "clanId": "vinsmoke"
     },
     {
       "username": "luffy",
-      "password": "luffy123",
+      "password": "$2b$10$JN17DfC3nzo7CQPJUvAXBuolYv1rL90HIKP8RMxvvvdjCaoL7PZ2G",
       "displayName": "Monkey D. Luffy",
       "role": "viewer",
       "clanId": "monkey-d"
     },
     {
       "username": "zoro",
-      "password": "zoro123",
+      "password": "$2b$10$EBisqCjBBL/lINnIkhtX7O75ruWUFtVUtgqPxUMJYthVWZQTT8xhy",
       "displayName": "Roronoa Zoro",
       "role": "viewer",
       "clanId": "roronoa"
     },
     {
       "username": "sanji",
-      "password": "sanji123",
+      "password": "$2b$10$G4Uj70A298YrO72whx8ccO.x1bvWewA0goBe2qnk4am1kOSz8IZ8m",
       "displayName": "Vinsmoke Sanji",
       "role": "viewer",
       "clanId": "vinsmoke"
     },
     {
       "username": "sysadmin",
-      "password": "sysadmin@2026",
+      "password": "$2b$10$UlSaqHfnyqzHrXJY6aVBbey3YxdgGAjs4O8Wt.TW/9eAUvLiDG1vW",
       "displayName": "Quản trị hệ thống",
       "role": "sysadmin",
       "clanId": null
     },
     {
       "username": "trinhthienchien",
-      "password": "trinhthienchien",
+      "password": "$2b$10$8jPXj40hLca5VFqe31tvG.72QJ1Xks/CJvokMXtaD/Dm12.szbFKa",
       "displayName": "Trịnh Thiên Chiến",
       "role": "admin",
       "clanId": "TrinhThienHien"

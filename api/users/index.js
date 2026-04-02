@@ -1,4 +1,9 @@
 const { readUsers, writeUsers } = require('../_lib/github');
+const bcrypt = require('bcryptjs');
+
+// Strip password from user objects before sending to client
+const sanitize = (users) => users.map(({ password, ...u }) => u);
+const SALT_ROUNDS = 10;
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -9,7 +14,7 @@ module.exports = async function handler(req, res) {
   try {
     if (req.method === 'GET') {
       const ud = await readUsers();
-      return res.status(200).json({ users: ud.users, clans: ud.clans });
+      return res.status(200).json({ users: sanitize(ud.users), clans: ud.clans });
     }
 
     if (req.method === 'POST') {
@@ -19,15 +24,16 @@ module.exports = async function handler(req, res) {
       }
       const ud = await readUsers();
       if (ud.users.some((u) => u.username === user.username)) return res.status(409).json({ error: 'Tên đăng nhập đã tồn tại' });
+      const hashedPassword = await bcrypt.hash(user.password, SALT_ROUNDS);
       ud.users.push({
         username: user.username,
-        password: user.password,
+        password: hashedPassword,
         displayName: user.displayName,
         role: user.role,
         clanId: user.clanId || null,
       });
       await writeUsers(ud);
-      return res.status(200).json({ ok: true, users: ud.users });
+      return res.status(200).json({ ok: true, users: sanitize(ud.users) });
     }
 
     return res.status(405).json({ error: 'Method not allowed' });

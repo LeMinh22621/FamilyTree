@@ -8,8 +8,13 @@ module.exports = async function handler(req, res) {
   const fileName = req.query.file;
   if (!fileName) return res.status(400).json({ error: 'file parameter required' });
 
-  // Validate filename: only allow users.json and data_*.json
-  if (fileName !== 'users.json' && !/^data_[\w-]+\.json$/.test(fileName)) {
+  // SECURITY: Block access to users.json — it contains credentials
+  if (fileName === 'users.json') {
+    return res.status(403).json({ error: 'Access denied' });
+  }
+
+  // Validate filename: only allow data_*.json
+  if (!/^data_[\w-]+\.json$/.test(fileName)) {
     return res.status(400).json({ error: 'Invalid file name' });
   }
 

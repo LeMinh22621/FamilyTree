@@ -11,38 +11,27 @@ export function AuthProvider({ children }) {
       return null;
     }
   });
-  const [usersData, setUsersData] = React.useState(null);
 
-  // Load users.json once
-  React.useEffect(() => {
-    fetch('/api/data/users.json')
-      .then((r) => r.json())
-      .then((d) => setUsersData(d))
-      .catch((err) => console.error('Failed to load users.json', err));
-  }, []);
+  const login = async (username, password) => {
+    try {
+      const resp = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+      const data = await resp.json();
 
-  const login = (username, password) => {
-    if (!usersData) return { ok: false, error: 'Đang tải dữ liệu...' };
+      if (!resp.ok || !data.ok) {
+        return { ok: false, error: data.error || 'Sai tên đăng nhập hoặc mật khẩu' };
+      }
 
-    const found = usersData.users.find(
-      (u) => u.username === username && u.password === password
-    );
-
-    if (!found) return { ok: false, error: 'Sai tên đăng nhập hoặc mật khẩu' };
-
-    const clan = usersData.clans.find((c) => c.clanId === found.clanId);
-    const session = {
-      username: found.username,
-      displayName: found.displayName,
-      role: found.role,
-      clanId: found.clanId || null,
-      clanName: clan ? clan.clanName : (found.clanId || ''),
-      dataFile: clan ? clan.dataFile : null,
-    };
-
-    setUser(session);
-    sessionStorage.setItem('ft_user', JSON.stringify(session));
-    return { ok: true };
+      const session = data.user;
+      setUser(session);
+      sessionStorage.setItem('ft_user', JSON.stringify(session));
+      return { ok: true };
+    } catch (err) {
+      return { ok: false, error: 'Lỗi kết nối. Vui lòng thử lại.' };
+    }
   };
 
   const logout = () => {
@@ -55,7 +44,7 @@ export function AuthProvider({ children }) {
   const isLoggedIn = !!user;
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, isAdmin, isSysAdmin, isLoggedIn, usersData, setUsersData }}>
+    <AuthContext.Provider value={{ user, login, logout, isAdmin, isSysAdmin, isLoggedIn }}>
       {children}
     </AuthContext.Provider>
   );

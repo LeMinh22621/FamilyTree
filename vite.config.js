@@ -2,6 +2,10 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import fs from 'fs';
 import path from 'path';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const bcrypt = require('bcryptjs');
+const SALT_ROUNDS = 10;
 
 // Vite plugin: embed API routes directly in the dev server
 function jsonApiPlugin() {
@@ -100,6 +104,9 @@ function jsonApiPlugin() {
     return await res.json();
   }
 
+  // Strip password from user objects before sending to client
+  const sanitizeUsers = (users) => users.map(({ password, ...u }) => u);
+
   // Sync a data file to GitHub
   async function syncDataToGH(dataFileName) {
     const cfg = readGHConfig();
@@ -155,11 +162,36 @@ function jsonApiPlugin() {
         if (!req.url.startsWith('/api/')) return next();
 
         try {
+          // ─── SERVER-SIDE LOGIN ───
+          if (req.method === 'POST' && req.url === '/api/login') {
+            const { username, password } = await parseBody(req);
+            if (!username || !password) return sendJson(res, 400, { error: 'username and password required' });
+            const ud = readUsers();
+            const found = ud.users.find((u) => u.username === username);
+            if (!found) return sendJson(res, 401, { error: 'Sai tên đăng nhập hoặc mật khẩu' });
+            const match = await bcrypt.compare(password, found.password);
+            if (!match) return sendJson(res, 401, { error: 'Sai tên đăng nhập hoặc mật khẩu' });
+            const clan = ud.clans.find((c) => c.clanId === found.clanId);
+            return sendJson(res, 200, {
+              ok: true,
+              user: {
+                username: found.username,
+                displayName: found.displayName,
+                role: found.role,
+                clanId: found.clanId || null,
+                clanName: clan ? clan.clanName : (found.clanId || ''),
+                dataFile: clan ? clan.dataFile : null,
+              },
+            });
+          }
+
           // GET /api/data/:file — serve JSON data files (for parity with Vercel)
           const dataMatch = req.method === 'GET' && req.url.match(/^\/api\/data\/(.+)$/);
           if (dataMatch) {
             const fileName = decodeURIComponent(dataMatch[1]);
-            if (fileName !== 'users.json' && !isSafe(fileName)) return sendJson(res, 400, { error: 'Invalid file' });
+            // SECURITY: Block access to users.json — it contains credentials
+            if (fileName === 'users.json') return sendJson(res, 403, { error: 'Access denied' });
+            if (!isSafe(fileName)) return sendJson(res, 400, { error: 'Invalid file' });
             const filePath = path.join(DATA_DIR, fileName);
             if (!fs.existsSync(filePath)) return sendJson(res, 404, { error: 'File not found' });
             const data = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
@@ -302,7 +334,7 @@ function jsonApiPlugin() {
           // GET /api/users — list all users
           if (req.method === 'GET' && req.url === '/api/users') {
             const ud = readUsers();
-            return sendJson(res, 200, { users: ud.users, clans: ud.clans });
+            return sendJson(res, 200, { users: sanitizeUsers(ud.users), clans: ud.clans });
           }
 
           // POST /api/users — add user
@@ -311,16 +343,17 @@ function jsonApiPlugin() {
             if (!user.username || !user.password || !user.displayName || !user.role) return sendJson(res, 400, { error: 'username, password, displayName, role required' });
             const ud = readUsers();
             if (ud.users.some((u) => u.username === user.username)) return sendJson(res, 409, { error: 'Tên đăng nhập đã tồn tại' });
+            const hashedPassword = await bcrypt.hash(user.password, SALT_ROUNDS);
             ud.users.push({
               username: user.username,
-              password: user.password,
+              password: hashedPassword,
               displayName: user.displayName,
               role: user.role,
               clanId: user.clanId || null,
             });
             writeUsers(ud);
             syncDataToGH('users.json');
-            return sendJson(res, 200, { ok: true, users: ud.users });
+            return sendJson(res, 200, { ok: true, users: sanitizeUsers(ud.users) });
           }
 
           // PUT /api/users/:username — update user
@@ -331,13 +364,13 @@ function jsonApiPlugin() {
             const ud = readUsers();
             const idx = ud.users.findIndex((u) => u.username === username);
             if (idx === -1) return sendJson(res, 404, { error: 'User not found' });
-            if (updates.password) ud.users[idx].password = updates.password;
+            if (updates.password) ud.users[idx].password = await bcrypt.hash(updates.password, SALT_ROUNDS);
             if (updates.displayName) ud.users[idx].displayName = updates.displayName;
             if (updates.role) ud.users[idx].role = updates.role;
             if (updates.clanId !== undefined) ud.users[idx].clanId = updates.clanId;
             writeUsers(ud);
             syncDataToGH('users.json');
-            return sendJson(res, 200, { ok: true, users: ud.users });
+            return sendJson(res, 200, { ok: true, users: sanitizeUsers(ud.users) });
           }
 
           // DELETE /api/users/:username — delete user
@@ -351,7 +384,7 @@ function jsonApiPlugin() {
             ud.users = ud.users.filter((u) => u.username !== username);
             writeUsers(ud);
             syncDataToGH('users.json');
-            return sendJson(res, 200, { ok: true, users: ud.users });
+            return sendJson(res, 200, { ok: true, users: sanitizeUsers(ud.users) });
           }
 
           // ─── GITHUB INTEGRATION ───

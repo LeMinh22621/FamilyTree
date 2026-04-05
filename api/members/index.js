@@ -15,11 +15,20 @@ module.exports = async function handler(req, res) {
     const members = await readData(dataFile);
     if (!members) return res.status(404).json({ error: 'File not found' });
     if (members.some((m) => m.id === member.id)) return res.status(409).json({ error: 'ID exists' });
+    // Sync voChongIds bidirectionally
     if (member.voChongIds?.length) {
       for (const sid of member.voChongIds) {
         const sp = members.find((m) => m.id === sid);
         if (sp) sp.voChongIds = [...(sp.voChongIds || []), member.id];
       }
+    }
+    // Sync conIds — update chaId/meId on selected children
+    const conIds = member.conIds || [];
+    delete member.conIds;
+    const parentField = member.gioiTinh === 'Nữ' ? 'meId' : 'chaId';
+    for (const cid of conIds) {
+      const child = members.find((m) => m.id === cid);
+      if (child) child[parentField] = member.id;
     }
     members.push(member);
     await writeData(dataFile, members);

@@ -1,5 +1,6 @@
 import React from 'react';
 import ImageUpload from './ImageUpload';
+import MemberPicker from './MemberPicker';
 import { useAuth } from '../context/AuthContext';
 import { proxyImageUrl } from '../utils/imageProxy';
 
@@ -169,10 +170,7 @@ export default function MemberDetail({ member, members = [], isAdmin, onDelete, 
   }
 
   // Edit mode — admin only
-  // Build options for relationship dropdowns
   const otherMembers = members.filter((m) => m.id !== member.id);
-  const maleOptions = otherMembers.filter((m) => m.gioiTinh === 'Nam');
-  const femaleOptions = otherMembers.filter((m) => m.gioiTinh === 'Nữ');
 
   // voChongIds management helpers
   const formSpouses = form.voChongIds || [];
@@ -183,6 +181,19 @@ export default function MemberDetail({ member, members = [], isAdmin, onDelete, 
   };
   const removeSpouse = (id) => {
     set('voChongIds', formSpouses.filter((s) => s !== id));
+  };
+
+  // conIds — derive current children from data, keep in edit form
+  const formConIds = form.conIds || members
+    .filter((m) => m.chaId === member.id || m.meId === member.id)
+    .map((m) => m.id);
+  const addChild = (id) => {
+    if (id && !formConIds.includes(id)) {
+      set('conIds', [...formConIds, id]);
+    }
+  };
+  const removeChild = (id) => {
+    set('conIds', formConIds.filter((c) => c !== id));
   };
 
   return (
@@ -252,21 +263,41 @@ export default function MemberDetail({ member, members = [], isAdmin, onDelete, 
         <div className="form-row">
           <div className="form-group">
             <label>Cha</label>
-            <select value={form.chaId || ''} onChange={(e) => set('chaId', e.target.value || null)}>
-              <option value="">— Không có —</option>
-              {maleOptions.map((m) => (
-                <option key={m.id} value={m.id}>{m.tenTu} ({m.id})</option>
-              ))}
-            </select>
+            {form.chaId ? (
+              <div className="spouse-tags">
+                <span className="spouse-tag">
+                  {(() => { const m = members.find((x) => x.id === form.chaId); return m ? `${m.tenHuy} ${m.tenTu}` : form.chaId; })()}
+                  <button type="button" className="spouse-tag-remove" onClick={() => set('chaId', null)}>✕</button>
+                </span>
+              </div>
+            ) : (
+              <MemberPicker
+                members={members}
+                filter={(m) => m.gioiTinh === 'Nam' && m.id !== member.id}
+                exclude={[form.meId, ...formSpouses, ...formConIds].filter(Boolean)}
+                placeholder="Tìm cha..."
+                onSelect={(id) => set('chaId', id)}
+              />
+            )}
           </div>
           <div className="form-group">
             <label>Mẹ</label>
-            <select value={form.meId || ''} onChange={(e) => set('meId', e.target.value || null)}>
-              <option value="">— Không có —</option>
-              {femaleOptions.map((m) => (
-                <option key={m.id} value={m.id}>{m.tenTu} ({m.id})</option>
-              ))}
-            </select>
+            {form.meId ? (
+              <div className="spouse-tags">
+                <span className="spouse-tag">
+                  {(() => { const m = members.find((x) => x.id === form.meId); return m ? `${m.tenHuy} ${m.tenTu}` : form.meId; })()}
+                  <button type="button" className="spouse-tag-remove" onClick={() => set('meId', null)}>✕</button>
+                </span>
+              </div>
+            ) : (
+              <MemberPicker
+                members={members}
+                filter={(m) => m.gioiTinh === 'Nữ' && m.id !== member.id}
+                exclude={[form.chaId, ...formSpouses, ...formConIds].filter(Boolean)}
+                placeholder="Tìm mẹ..."
+                onSelect={(id) => set('meId', id)}
+              />
+            )}
           </div>
         </div>
 
@@ -288,24 +319,43 @@ export default function MemberDetail({ member, members = [], isAdmin, onDelete, 
                 const sp = members.find((m) => m.id === sid);
                 return (
                   <span key={sid} className="spouse-tag">
-                    {sp ? sp.tenTu : sid}
+                    {sp ? `${sp.tenHuy} ${sp.tenTu}` : sid}
                     <button type="button" className="spouse-tag-remove" onClick={() => removeSpouse(sid)}>✕</button>
                   </span>
                 );
               })}
             </div>
           )}
-          <select
-            value=""
-            onChange={(e) => { addSpouse(e.target.value); e.target.value = ''; }}
-          >
-            <option value="">— Thêm vợ/chồng —</option>
-            {otherMembers
-              .filter((m) => !formSpouses.includes(m.id))
-              .map((m) => (
-                <option key={m.id} value={m.id}>{m.tenTu} ({m.id})</option>
-              ))}
-          </select>
+          <MemberPicker
+            members={members}
+            exclude={[member.id, form.chaId, form.meId, ...formSpouses, ...formConIds].filter(Boolean)}
+            placeholder="Tìm vợ/chồng..."
+            onSelect={addSpouse}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>👶 Con cái</label>
+          {formConIds.length > 0 && (
+            <div className="spouse-tags">
+              {formConIds.map((cid) => {
+                const ch = members.find((m) => m.id === cid);
+                return (
+                  <span key={cid} className="spouse-tag child-tag">
+                    {ch ? `${ch.tenHuy} ${ch.tenTu}` : cid}
+                    <button type="button" className="spouse-tag-remove" onClick={() => removeChild(cid)}>✕</button>
+                  </span>
+                );
+              })}
+            </div>
+          )}
+          <MemberPicker
+            members={members}
+            exclude={[member.id, form.chaId, form.meId, ...formSpouses, ...formConIds].filter(Boolean)}
+            placeholder="Tìm con..."
+            onSelect={addChild}
+          />
+          <small className="form-hint">Hệ thống tự cập nhật cha/mẹ của những người được chọn làm con.</small>
         </div>
 
         <div className="form-group">

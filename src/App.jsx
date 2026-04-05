@@ -80,8 +80,7 @@ export default function App() {
       setMembers(data.members);
       setFiltered(null);
       setShowAddForm(false);
-      setSelected(newMember);
-      setShowPanel(true);
+      // Don't auto-select — user can click the node on the tree to view detail
     } catch (err) {
       console.error('Add member failed', err);
       alert('Không thể lưu dữ liệu.');

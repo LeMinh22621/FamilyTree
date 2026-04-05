@@ -1,5 +1,6 @@
 import React from 'react';
 import ImageUpload from './ImageUpload';
+import MemberPicker from './MemberPicker';
 import { useAuth } from '../context/AuthContext';
 
 const EMPTY = {
@@ -14,6 +15,7 @@ const EMPTY = {
   hinhAnh: '',
   moPhan: '',
   voChongIds: [],
+  conIds: [],
   chaId: '',
   meId: '',
   nhanh: 'noi',
@@ -68,18 +70,12 @@ export default function AddMember({ members = [], onAdd, onClose }) {
       id: generateId(),
       chaId: form.chaId || null,
       meId: form.meId || null,
-      voChongIds: form.spouseId ? [form.spouseId] : [],
+      conIds: form.conIds,
     };
     delete newMember.spouseId;
 
     onAdd(newMember);
   };
-
-  // Build parent options from existing members
-  const parentOptions = members.map((m) => ({
-    id: m.id,
-    label: `${m.tenTu} (${m.id})`,
-  }));
 
   return (
     <div className="add-member-overlay">
@@ -167,42 +163,100 @@ export default function AddMember({ members = [], onAdd, onClose }) {
           {/* Cha + Mẹ */}
           <div className="form-row">
             <div className="form-group">
-              <label>Cha (chọn từ danh sách)</label>
-              <select value={form.chaId} onChange={(e) => set('chaId', e.target.value)}>
-                <option value="">— Không có —</option>
-                {parentOptions.filter((p) => {
-                  const m = members.find((x) => x.id === p.id);
-                  return m && m.gioiTinh === 'Nam';
-                }).map((p) => (
-                  <option key={p.id} value={p.id}>{p.label}</option>
-                ))}
-              </select>
+              <label>Cha</label>
+              {form.chaId ? (
+                <div className="spouse-tags">
+                  <span className="spouse-tag">
+                    {(() => { const m = members.find((x) => x.id === form.chaId); return m ? `${m.tenHuy} ${m.tenTu}` : form.chaId; })()}
+                    <button type="button" className="spouse-tag-remove" onClick={() => set('chaId', '')}>✕</button>
+                  </span>
+                </div>
+              ) : (
+                <MemberPicker
+                  members={members}
+                  filter={(m) => m.gioiTinh === 'Nam'}
+                  exclude={[form.meId, ...(form.voChongIds || []), ...(form.conIds || [])].filter(Boolean)}
+                  placeholder="Tìm cha..."
+                  onSelect={(id) => set('chaId', id)}
+                />
+              )}
               {errors.chaId && <span className="error-text">{errors.chaId}</span>}
             </div>
             <div className="form-group">
-              <label>Mẹ (chọn từ danh sách)</label>
-              <select value={form.meId} onChange={(e) => set('meId', e.target.value)}>
-                <option value="">— Không có —</option>
-                {parentOptions.filter((p) => {
-                  const m = members.find((x) => x.id === p.id);
-                  return m && m.gioiTinh === 'Nữ';
-                }).map((p) => (
-                  <option key={p.id} value={p.id}>{p.label}</option>
-                ))}
-              </select>
+              <label>Mẹ</label>
+              {form.meId ? (
+                <div className="spouse-tags">
+                  <span className="spouse-tag">
+                    {(() => { const m = members.find((x) => x.id === form.meId); return m ? `${m.tenHuy} ${m.tenTu}` : form.meId; })()}
+                    <button type="button" className="spouse-tag-remove" onClick={() => set('meId', '')}>✕</button>
+                  </span>
+                </div>
+              ) : (
+                <MemberPicker
+                  members={members}
+                  filter={(m) => m.gioiTinh === 'Nữ'}
+                  exclude={[form.chaId, ...(form.voChongIds || []), ...(form.conIds || [])].filter(Boolean)}
+                  placeholder="Tìm mẹ..."
+                  onSelect={(id) => set('meId', id)}
+                />
+              )}
               {errors.meId && <span className="error-text">{errors.meId}</span>}
             </div>
           </div>
 
           {/* Vợ/Chồng */}
           <div className="form-group">
-            <label>Vợ/Chồng (chọn từ danh sách)</label>
-            <select value={form.spouseId || ''} onChange={(e) => set('spouseId', e.target.value)}>
-              <option value="">— Không có —</option>
-              {parentOptions.map((p) => (
-                <option key={p.id} value={p.id}>{p.label}</option>
-              ))}
-            </select>
+            <label>Vợ/Chồng</label>
+            {form.voChongIds.length > 0 && (
+              <div className="spouse-tags">
+                {form.voChongIds.map((sid) => {
+                  const sp = members.find((m) => m.id === sid);
+                  return (
+                    <span key={sid} className="spouse-tag">
+                      {sp ? `${sp.tenHuy} ${sp.tenTu}` : sid}
+                      <button type="button" className="spouse-tag-remove"
+                        onClick={() => set('voChongIds', form.voChongIds.filter((x) => x !== sid))}>✕</button>
+                    </span>
+                  );
+                })}
+              </div>
+            )}
+            <MemberPicker
+              members={members}
+              exclude={[form.chaId, form.meId, ...form.voChongIds, ...form.conIds].filter(Boolean)}
+              placeholder="Tìm vợ/chồng..."
+              onSelect={(id) => {
+                if (!form.voChongIds.includes(id)) set('voChongIds', [...form.voChongIds, id]);
+              }}
+            />
+          </div>
+
+          {/* Con cái */}
+          <div className="form-group">
+            <label>👶 Con cái (thêm từ trên xuống)</label>
+            {form.conIds.length > 0 && (
+              <div className="spouse-tags">
+                {form.conIds.map((cid) => {
+                  const child = members.find((m) => m.id === cid);
+                  return (
+                    <span key={cid} className="spouse-tag child-tag">
+                      {child ? `${child.tenHuy} ${child.tenTu}` : cid}
+                      <button type="button" className="spouse-tag-remove"
+                        onClick={() => set('conIds', form.conIds.filter((x) => x !== cid))}>✕</button>
+                    </span>
+                  );
+                })}
+              </div>
+            )}
+            <MemberPicker
+              members={members}
+              exclude={[form.chaId, form.meId, ...form.voChongIds, ...form.conIds].filter(Boolean)}
+              placeholder="Tìm con..."
+              onSelect={(id) => {
+                if (!form.conIds.includes(id)) set('conIds', [...form.conIds, id]);
+              }}
+            />
+            <small className="form-hint">Hệ thống tự cập nhật cha/mẹ của những người được chọn làm con.</small>
           </div>
 
           {/* Hình ảnh */}

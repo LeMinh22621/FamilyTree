@@ -206,11 +206,20 @@ function jsonApiPlugin() {
             const members = readData(dataFile);
             if (!members) return sendJson(res, 404, { error: 'File not found' });
             if (members.some((m) => m.id === member.id)) return sendJson(res, 409, { error: 'ID exists' });
+            // Sync voChongIds bidirectionally
             if (member.voChongIds?.length) {
               for (const sid of member.voChongIds) {
                 const sp = members.find((m) => m.id === sid);
                 if (sp) sp.voChongIds = [...(sp.voChongIds || []), member.id];
               }
+            }
+            // Sync conIds — update chaId/meId on selected children
+            const conIds = member.conIds || [];
+            delete member.conIds;
+            const parentField = member.gioiTinh === 'Nữ' ? 'meId' : 'chaId';
+            for (const cid of conIds) {
+              const child = members.find((m) => m.id === cid);
+              if (child) child[parentField] = member.id;
             }
             members.push(member);
             writeData(dataFile, members);
@@ -246,6 +255,31 @@ function jsonApiPlugin() {
                 const sp = members.find((m) => m.id === sid);
                 if (sp && !(sp.voChongIds || []).includes(id)) {
                   sp.voChongIds = [...(sp.voChongIds || []), id];
+                }
+              }
+            }
+
+            // Sync conIds bidirectionally — update chaId/meId on children
+            const conIds = member.conIds;
+            delete member.conIds;
+            if (conIds !== undefined) {
+              const parentField = (member.gioiTinh || members[idx].gioiTinh) === 'Nữ' ? 'meId' : 'chaId';
+              // Current children derived from data
+              const currentChildren = members
+                .filter((m) => m.chaId === id || m.meId === id)
+                .map((m) => m.id);
+              // Remove parent link from children no longer in list
+              for (const cid of currentChildren) {
+                if (!conIds.includes(cid)) {
+                  const child = members.find((m) => m.id === cid);
+                  if (child && child[parentField] === id) child[parentField] = null;
+                }
+              }
+              // Set parent link on newly added children
+              for (const cid of conIds) {
+                if (!currentChildren.includes(cid)) {
+                  const child = members.find((m) => m.id === cid);
+                  if (child) child[parentField] = id;
                 }
               }
             }

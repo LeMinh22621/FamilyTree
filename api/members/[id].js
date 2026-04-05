@@ -36,6 +36,28 @@ module.exports = async function handler(req, res) {
         }
       }
 
+      // Sync conIds bidirectionally — update chaId/meId on children
+      const conIds = member.conIds;
+      delete member.conIds;
+      if (conIds !== undefined) {
+        const parentField = (member.gioiTinh || members[idx].gioiTinh) === 'Nữ' ? 'meId' : 'chaId';
+        const currentChildren = members
+          .filter((m) => m.chaId === memberId || m.meId === memberId)
+          .map((m) => m.id);
+        for (const cid of currentChildren) {
+          if (!conIds.includes(cid)) {
+            const child = members.find((m) => m.id === cid);
+            if (child && child[parentField] === memberId) child[parentField] = null;
+          }
+        }
+        for (const cid of conIds) {
+          if (!currentChildren.includes(cid)) {
+            const child = members.find((m) => m.id === cid);
+            if (child) child[parentField] = memberId;
+          }
+        }
+      }
+
       members[idx] = { ...members[idx], ...member };
       await writeData(dataFile, members);
       return res.status(200).json({ ok: true, members });

@@ -19,6 +19,11 @@
       "clanId": "TrinhThienHien",
       "clanName": "Trinh Thien Hien",
       "dataFile": "data_TrinhThienHien.json"
+    },
+    {
+      "clanId": "CoBa",
+      "clanName": "Cố Bá",
+      "dataFile": "data_CoBa.json"
     }
   ],
   "users": [

@@ -141,7 +141,7 @@
     "ngaySinh": "",
     "ngayMat": "",
     "tieuSu": "",
-    "hinhAnh": "https://raw.githubusercontent.com/LeMinh22621/FamilyTree/main/images/TrinhThienHien/1775146389984_naruto.jpg",
+    "hinhAnh": "",
     "moPhan": "",
     "voChongIds": [
       "M7"
@@ -393,7 +393,7 @@
     "ngaySinh": "",
     "ngayMat": "",
     "tieuSu": "",
-    "hinhAnh": "https://raw.githubusercontent.com/LeMinh22621/FamilyTree/main/images/TrinhThienHien/1775146304833_lehongminh.jpg",
+    "hinhAnh": "",
     "moPhan": "",
     "voChongIds": [],
     "chaId": "M11",
@@ -646,5 +646,22 @@
     "meId": null,
     "nhanh": "ngoai",
     "id": "M36"
+  },
+  {
+    "tenHuy": "Lương Nguyên Hoàng",
+    "tenTu": "Lương Nguyên Hoàng",
+    "thuyHieu": "Lương Nguyên Hoàng",
+    "thuTuCon": 1,
+    "gioiTinh": "Nam",
+    "ngaySinh": "",
+    "ngayMat": "",
+    "tieuSu": "",
+    "hinhAnh": "",
+    "moPhan": "",
+    "voChongIds": [],
+    "chaId": "M34",
+    "meId": null,
+    "nhanh": "noi",
+    "id": "M37"
   }
 ]

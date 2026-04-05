@@ -648,8 +648,8 @@
     "id": "M36"
   },
   {
-    "tenHuy": "Lương Nguyên Hoàng",
-    "tenTu": "Lương Nguyên Hoàng",
+    "tenHuy": "Lương",
+    "tenTu": " Nguyên Hoàng",
     "thuyHieu": "Lương Nguyên Hoàng",
     "thuTuCon": 1,
     "gioiTinh": "Nam",
@@ -660,7 +660,7 @@
     "moPhan": "",
     "voChongIds": [],
     "chaId": "M34",
-    "meId": null,
+    "meId": "M20",
     "nhanh": "noi",
     "id": "M37"
   }

@@ -10,7 +10,9 @@
     "tieuSu": "không có",
     "hinhAnh": "",
     "moPhan": "",
-    "voChongIds": [],
+    "voChongIds": [
+      "M3"
+    ],
     "chaId": null,
     "meId": null,
     "nhanh": "noi",
@@ -32,5 +34,24 @@
     "meId": null,
     "nhanh": "noi",
     "id": "M2"
+  },
+  {
+    "tenHuy": "Trịnh Thị Liên",
+    "tenTu": "Trịnh Thị Liên",
+    "thuyHieu": "Trịnh Thị Liên",
+    "thuTuCon": 1,
+    "gioiTinh": "Nam",
+    "ngaySinh": "",
+    "ngayMat": "",
+    "tieuSu": "",
+    "hinhAnh": "",
+    "moPhan": "",
+    "voChongIds": [
+      "M1"
+    ],
+    "chaId": null,
+    "meId": null,
+    "nhanh": "noi",
+    "id": "M3"
   }
 ]

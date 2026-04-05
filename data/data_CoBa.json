@@ -82,10 +82,31 @@
     "tieuSu": "",
     "hinhAnh": "",
     "moPhan": "",
-    "voChongIds": [],
+    "voChongIds": [
+      "M6"
+    ],
     "chaId": "M1",
     "meId": "M3",
     "nhanh": "noi",
     "id": "M5"
+  },
+  {
+    "tenHuy": "Lương Văn Độ",
+    "tenTu": "Lương Văn Độ",
+    "thuyHieu": "Lương Văn Độ",
+    "thuTuCon": 1,
+    "gioiTinh": "Nam",
+    "ngaySinh": "",
+    "ngayMat": "",
+    "tieuSu": "",
+    "hinhAnh": "",
+    "moPhan": "",
+    "voChongIds": [
+      "M5"
+    ],
+    "chaId": null,
+    "meId": null,
+    "nhanh": "ngoai",
+    "id": "M6"
   }
 ]

@@ -82,6 +82,13 @@
       "displayName": "Trịnh Thiên Chiến",
       "role": "admin",
       "clanId": "TrinhThienHien"
+    },
+    {
+      "username": "lethanhvy",
+      "password": "$2b$10$IKXyWrwDgo8I5GQ66tHQYO7r8teXYIxJ5DXxuEltTN3TYXqzmuau.",
+      "displayName": "Lê Thành Vỵ",
+      "role": "admin",
+      "clanId": "CoBa"
     }
   ]
 }

@@ -32,5 +32,22 @@
     "meId": null,
     "nhanh": "noi",
     "id": "M2"
+  },
+  {
+    "tenHuy": "Lê",
+    "tenTu": "Lê Văn Thường",
+    "thuyHieu": "",
+    "thuTuCon": 2,
+    "gioiTinh": "Nam",
+    "ngaySinh": "",
+    "ngayMat": "",
+    "tieuSu": "",
+    "hinhAnh": "",
+    "moPhan": "",
+    "voChongIds": [],
+    "chaId": null,
+    "meId": null,
+    "nhanh": "noi",
+    "id": "M3"
   }
 ]

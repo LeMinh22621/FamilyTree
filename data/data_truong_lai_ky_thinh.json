@@ -311,5 +311,22 @@
     "meId": "M8",
     "nhanh": "noi",
     "id": "M18"
+  },
+  {
+    "tenHuy": "Lê",
+    "tenTu": "Kịch",
+    "thuyHieu": "",
+    "thuTuCon": 1,
+    "gioiTinh": "Nữ",
+    "ngaySinh": "",
+    "ngayMat": "",
+    "tieuSu": "",
+    "hinhAnh": "",
+    "moPhan": "",
+    "voChongIds": [],
+    "chaId": "M3",
+    "meId": "M8",
+    "nhanh": "noi",
+    "id": "M19"
   }
 ]

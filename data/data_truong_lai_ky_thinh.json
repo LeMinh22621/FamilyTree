@@ -45,7 +45,8 @@
     "hinhAnh": "",
     "moPhan": "",
     "voChongIds": [
-      "M7"
+      "M7",
+      "M8"
     ],
     "chaId": "M1",
     "meId": null,
@@ -121,5 +122,24 @@
     "meId": null,
     "nhanh": "noi",
     "id": "M7"
+  },
+  {
+    "tenHuy": "...",
+    "tenTu": "Bà Kế Mậu",
+    "thuyHieu": "",
+    "thuTuCon": 1,
+    "gioiTinh": "Nữ",
+    "ngaySinh": "",
+    "ngayMat": "",
+    "tieuSu": "",
+    "hinhAnh": "",
+    "moPhan": "",
+    "voChongIds": [
+      "M3"
+    ],
+    "chaId": null,
+    "meId": null,
+    "nhanh": "noi",
+    "id": "M8"
   }
 ]

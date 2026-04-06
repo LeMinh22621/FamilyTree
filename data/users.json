@@ -19,6 +19,11 @@
       "clanId": "TrinhThienHien",
       "clanName": "Trinh Thien Hien",
       "dataFile": "data_TrinhThienHien.json"
+    },
+    {
+      "clanId": "Trường Lại Kỳ Thịnh",
+      "clanName": "Trường Lại Kỳ Thịnh",
+      "dataFile": "data_truong_lai_ky_thinh.json"
     }
   ],
   "users": [

@@ -400,5 +400,22 @@
     "meId": null,
     "nhanh": "noi",
     "id": "M23"
+  },
+  {
+    "tenHuy": "Lê",
+    "tenTu": "Lê Ngưu",
+    "thuyHieu": "",
+    "thuTuCon": 1,
+    "gioiTinh": "Nam",
+    "ngaySinh": "",
+    "ngayMat": "",
+    "tieuSu": "",
+    "hinhAnh": "",
+    "moPhan": "",
+    "voChongIds": [],
+    "chaId": "M10",
+    "meId": null,
+    "nhanh": "noi",
+    "id": "M24"
   }
 ]

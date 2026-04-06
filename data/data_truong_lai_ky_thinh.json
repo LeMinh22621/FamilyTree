@@ -621,5 +621,22 @@
     "meId": null,
     "nhanh": "noi",
     "id": "M36"
+  },
+  {
+    "tenHuy": "Lê",
+    "tenTu": "Ban Con",
+    "thuyHieu": "",
+    "thuTuCon": 1,
+    "gioiTinh": "Nữ",
+    "ngaySinh": "",
+    "ngayMat": "",
+    "tieuSu": "",
+    "hinhAnh": "",
+    "moPhan": "",
+    "voChongIds": [],
+    "chaId": "M14",
+    "meId": null,
+    "nhanh": "noi",
+    "id": "M37"
   }
 ]

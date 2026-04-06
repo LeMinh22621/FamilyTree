@@ -323,10 +323,31 @@
     "tieuSu": "",
     "hinhAnh": "",
     "moPhan": "",
-    "voChongIds": [],
+    "voChongIds": [
+      "M20"
+    ],
     "chaId": "M3",
     "meId": "M8",
     "nhanh": "noi",
     "id": "M19"
+  },
+  {
+    "tenHuy": "...",
+    "tenTu": "Ông Danh",
+    "thuyHieu": "",
+    "thuTuCon": 1,
+    "gioiTinh": "Nam",
+    "ngaySinh": "",
+    "ngayMat": "",
+    "tieuSu": "",
+    "hinhAnh": "",
+    "moPhan": "",
+    "voChongIds": [
+      "M19"
+    ],
+    "chaId": null,
+    "meId": null,
+    "nhanh": "noi",
+    "id": "M20"
   }
 ]

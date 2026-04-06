@@ -723,5 +723,22 @@
     "meId": null,
     "nhanh": "noi",
     "id": "M42"
+  },
+  {
+    "tenHuy": "Lê",
+    "tenTu": "Lê Thành Tuyển",
+    "thuyHieu": "",
+    "thuTuCon": 1,
+    "gioiTinh": "Nam",
+    "ngaySinh": "",
+    "ngayMat": "",
+    "tieuSu": "",
+    "hinhAnh": "",
+    "moPhan": "",
+    "voChongIds": [],
+    "chaId": "M16",
+    "meId": null,
+    "nhanh": "noi",
+    "id": "M43"
   }
 ]

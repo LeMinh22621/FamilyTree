@@ -230,5 +230,22 @@
     "meId": "M9",
     "nhanh": "noi",
     "id": "M12"
+  },
+  {
+    "tenHuy": "1 con vo 2",
+    "tenTu": "1 con vo 2",
+    "thuyHieu": "",
+    "thuTuCon": 1,
+    "gioiTinh": "Nam",
+    "ngaySinh": "",
+    "ngayMat": "",
+    "tieuSu": "",
+    "hinhAnh": "",
+    "moPhan": "",
+    "voChongIds": [],
+    "chaId": "S3",
+    "meId": "M8",
+    "nhanh": "noi",
+    "id": "M13"
   }
 ]

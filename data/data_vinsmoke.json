@@ -113,7 +113,8 @@
     "hinhAnh": "https://images.example.com/sanji.png",
     "moPhan": "",
     "voChongIds": [
-      "M8"
+      "M8",
+      "M9"
     ],
     "chaId": "S1",
     "meId": "S2",
@@ -156,5 +157,24 @@
     "meId": null,
     "nhanh": "noi",
     "id": "M8"
+  },
+  {
+    "tenHuy": "vợ 1",
+    "tenTu": "vợ 1",
+    "thuyHieu": "",
+    "thuTuCon": 1,
+    "gioiTinh": "Nam",
+    "ngaySinh": "",
+    "ngayMat": "",
+    "tieuSu": "",
+    "hinhAnh": "",
+    "moPhan": "",
+    "voChongIds": [
+      "S3"
+    ],
+    "chaId": null,
+    "meId": null,
+    "nhanh": "noi",
+    "id": "M9"
   }
 ]

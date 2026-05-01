@@ -114,7 +114,8 @@
     "moPhan": "",
     "voChongIds": [
       "M8",
-      "M9"
+      "M9",
+      "M10"
     ],
     "chaId": "S1",
     "meId": "S2",
@@ -176,5 +177,24 @@
     "meId": null,
     "nhanh": "ngoai",
     "id": "M9"
+  },
+  {
+    "tenHuy": "vợ 3",
+    "tenTu": "vợ 3",
+    "thuyHieu": "",
+    "thuTuCon": 1,
+    "gioiTinh": "Nữ",
+    "ngaySinh": "",
+    "ngayMat": "",
+    "tieuSu": "",
+    "hinhAnh": "",
+    "moPhan": "",
+    "voChongIds": [
+      "S3"
+    ],
+    "chaId": null,
+    "meId": null,
+    "nhanh": "noi",
+    "id": "M10"
   }
 ]
